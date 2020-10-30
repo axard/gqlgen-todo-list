@@ -230,13 +230,18 @@ check:
 			--color always
 
 boilerplate: # @HELP Генерирует код сервера API по спецификации GraphQL
-boilerplate:
+boilerplate: $(BUILD_DIRS)
 	@echo
 	@echo "generating server code from graphql specification"
 	@docker run                                                 \
+	    -i                                                      \
 	    --rm                                                    \
+	    -u $$(id -u):$$(id -g)                                  \
 	    -v $$(pwd):/src                                         \
 	    -w /src                                                 \
+	    -v $$(pwd)/.go/bin/$(OS)_$(ARCH):/go/bin                \
+	    -v $$(pwd)/.go/bin/$(OS)_$(ARCH):/go/bin/$(OS)_$(ARCH)  \
+	    -v $$(pwd)/.go/cache:/.cache                            \
 	    --env HTTP_PROXY=$(HTTP_PROXY)                          \
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \
 	    $(BUILD_IMAGE)                                          \
