@@ -256,6 +256,10 @@ container-clean:
 bin-clean:
 	rm -rf .go bin
 
+tidy:
+tidy: # @HELP Удаляет лишние зависимости Go
+	go mod tidy
+
 help: # @HELP Выводит эту справку
 help:
 	@echo "VARIABLES:"
