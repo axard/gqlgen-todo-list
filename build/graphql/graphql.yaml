@@ -4,8 +4,8 @@ schema:
 
 # Where should the generated server code go?
 exec:
-  filename: internal/graphql/generated/server.go
-  package: server
+  filename: internal/graphql/generated/generated.go
+  package: generated
 
 # Where should any generated models go?
 model:
@@ -16,7 +16,7 @@ model:
 resolver:
   layout: follow-schema
   dir: internal/graphql
-  package: resolver
+  package: graphql
   filename_template: "{name}.resolvers.go"
 
 # Optional: turn on use ` + "`" + `gqlgen:"fieldName"` + "`" + ` tags in your models
