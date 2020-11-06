@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/axard/gqlgen-todo-list/internal/env"
 	"github.com/axard/gqlgen-todo-list/internal/graphql"
 	"github.com/axard/gqlgen-todo-list/internal/graphql/generated"
 	"github.com/axard/gqlgen-todo-list/internal/log"
@@ -21,7 +20,6 @@ func main() {
 	log.Logger.Info(
 		"Playground started",
 		zap.String("Version", version.Version),
-		zap.String("Environment", env.Environment),
 	)
 
 	port := os.Getenv("PORT")
