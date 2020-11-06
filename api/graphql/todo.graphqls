@@ -1,6 +1,6 @@
 type Todo {
   id: ID!
-  text: String!
+  description: String!
   done: Boolean!
   user: User!
 }
@@ -10,7 +10,7 @@ type Query {
 }
 
 input NewTodo {
-  text: String!
+  description: String!
   userId: ID!
 }
 
