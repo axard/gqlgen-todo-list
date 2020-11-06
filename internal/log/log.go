@@ -2,8 +2,8 @@ package log
 
 import (
 	"fmt"
-	"os"
 
+	"github.com/axard/gqlgen-todo-list/internal/cfg"
 	"go.uber.org/zap"
 )
 
@@ -21,22 +21,15 @@ func isValidLevel(s string) bool {
 		s == production
 }
 
-func level() string {
-	if v := os.Getenv("LOG_LVL"); v != "" {
-		if !isValidLevel(v) {
-			panic(fmt.Errorf("invalid value of $ENV: %s", v))
-		}
-
-		return v
-	}
-
-	return production
-}
-
 func init() {
 	var err error
 
-	switch level() {
+	l := cfg.LogLevel()
+	if !isValidLevel(l) {
+		panic(fmt.Sprintf("unknown log level: %s", l))
+	}
+
+	switch l {
 	case development:
 		Logger, err = zap.NewDevelopment()
 		if err != nil {

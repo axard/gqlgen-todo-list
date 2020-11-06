@@ -2,33 +2,22 @@ package pg
 
 import (
 	"context"
-	"os"
 
+	"github.com/axard/gqlgen-todo-list/internal/cfg"
 	"github.com/axard/gqlgen-todo-list/internal/log"
 	"go.uber.org/zap"
 
 	"github.com/jackc/pgx/v4/pgxpool"
 )
 
-const (
-	defaultURL = "postgres://postgres:docker@localhost.ru:5432/postgres?sslmode=disable"
-)
-
 var (
-	URL  string        = url()
-	Pool *pgxpool.Pool = createConnectionPool()
+	Pool *pgxpool.Pool
 )
 
-func url() string {
-	if v := os.Getenv("PG_URL"); v != "" {
-		return v
-	}
+func init() {
+	var err error
 
-	return defaultURL
-}
-
-func createConnectionPool() *pgxpool.Pool {
-	pool, err := pgxpool.Connect(context.Background(), URL)
+	Pool, err = pgxpool.Connect(context.Background(), cfg.PgURL())
 	if err != nil {
 		log.Logger.Fatal(
 			"PostgreSQL connect failed",
@@ -41,6 +30,4 @@ func createConnectionPool() *pgxpool.Pool {
 		"PostgreSQL connect success",
 		zap.String("URL", err.Error()),
 	)
-
-	return pool
 }
