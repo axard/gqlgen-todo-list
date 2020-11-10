@@ -7,13 +7,6 @@ type NewTodo struct {
 	UserID      int    `json:"userId"`
 }
 
-type Todo struct {
-	ID          int    `json:"id"`
-	Description string `json:"description"`
-	Done        bool   `json:"done"`
-	User        *User  `json:"user"`
-}
-
 type User struct {
 	ID    int    `json:"id"`
 	Login string `json:"login"`
