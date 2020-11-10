@@ -7,7 +7,7 @@ import (
 
 func getenvOrPanic(key string) string {
 	v := os.Getenv(key)
-	if v != "" {
+	if v == "" {
 		panic(fmt.Sprintf("variable %s should be set", key))
 	}
 
