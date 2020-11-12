@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/axard/gqlgen-todo-list/internal/graphql"
-	"github.com/axard/gqlgen-todo-list/internal/graphql/generated"
+	"github.com/axard/gqlgen-todo-list/internal/graphql/resolver"
+	"github.com/axard/gqlgen-todo-list/internal/graphql/server"
 	"github.com/axard/gqlgen-todo-list/internal/log"
 	"github.com/axard/gqlgen-todo-list/pkg/version"
 	"go.uber.org/zap"
@@ -27,9 +27,9 @@ func main() {
 		port = defaultPort
 	}
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(
-		generated.Config{
-			Resolvers: &graphql.Resolver{},
+	srv := handler.NewDefaultServer(server.NewExecutableSchema(
+		server.Config{
+			Resolvers: &resolver.Resolver{},
 		},
 	))
 
