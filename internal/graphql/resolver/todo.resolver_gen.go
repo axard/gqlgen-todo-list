@@ -8,18 +8,18 @@ import (
 	"fmt"
 
 	"github.com/axard/gqlgen-todo-list/internal/graphql/server"
-	model1 "github.com/axard/gqlgen-todo-list/internal/model"
+	"github.com/axard/gqlgen-todo-list/internal/model"
 )
 
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model1.NewTodo) (*model1.Todo, error) {
+func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *queryResolver) Todos(ctx context.Context) ([]*model1.Todo, error) {
+func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *todoResolver) User(ctx context.Context, obj *model1.Todo) (*model1.User, error) {
+func (r *todoResolver) User(ctx context.Context, obj *model.Todo) (*model.User, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
@@ -29,6 +29,7 @@ func (r *Resolver) Mutation() server.MutationResolver { return &mutationResolver
 // Query returns server.QueryResolver implementation.
 func (r *Resolver) Query() server.QueryResolver { return &queryResolver{r} }
 
+// nolint: godox
 // Todo returns server.TodoResolver implementation.
 func (r *Resolver) Todo() server.TodoResolver { return &todoResolver{r} }
 
