@@ -5,22 +5,23 @@ package resolver
 
 import (
 	"context"
-	"fmt"
 
+	"github.com/axard/gqlgen-todo-list/internal/db"
+	"github.com/axard/gqlgen-todo-list/internal/graphql/dataloader"
 	"github.com/axard/gqlgen-todo-list/internal/graphql/server"
 	"github.com/axard/gqlgen-todo-list/internal/model"
 )
 
 func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	panic(fmt.Errorf("not implemented"))
+	return db.CreateTodo(ctx, input)
 }
 
 func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	panic(fmt.Errorf("not implemented"))
+	return db.Todos(ctx)
 }
 
 func (r *todoResolver) User(ctx context.Context, obj *model.Todo) (*model.User, error) {
-	panic(fmt.Errorf("not implemented"))
+	return dataloader.For(ctx).UserByID.Load(obj.ID)
 }
 
 // Mutation returns server.MutationResolver implementation.
