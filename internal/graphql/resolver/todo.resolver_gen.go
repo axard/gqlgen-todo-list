@@ -21,7 +21,7 @@ func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
 }
 
 func (r *todoResolver) User(ctx context.Context, obj *model.Todo) (*model.User, error) {
-	return dataloader.For(ctx).UserByID.Load(obj.ID)
+	return dataloader.For(ctx).UserByID.Load(obj.UserID)
 }
 
 // Mutation returns server.MutationResolver implementation.
