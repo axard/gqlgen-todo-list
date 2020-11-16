@@ -2,10 +2,10 @@ package dataloader
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 	"time"
 
+	"github.com/axard/gqlgen-todo-list/internal/db"
 	"github.com/axard/gqlgen-todo-list/internal/model"
 )
 
@@ -29,7 +29,8 @@ func Middleware(next http.Handler) http.Handler {
 				maxBatch: DefaultBatchSize,
 				wait:     DefaultWaitTime,
 				fetch: func(keys []int) ([]*model.User, []error) {
-					panic(fmt.Errorf("not implemented"))
+					users, err := db.UsersByIds(r.Context(), keys)
+					return users, []error{err}
 				},
 			},
 		})
