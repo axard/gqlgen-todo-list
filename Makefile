@@ -158,7 +158,7 @@ $(foreach bin,$(BINS),$(eval $(strip                                 \
     .container-$(subst /,_,$(REGISTRY)/$(bin))-$(TAG): BIN = $(bin)  \
 )))
 $(foreach bin,$(BINS),$(eval                                                                   \
-    .container-$(subst /,_,$(REGISTRY)/$(bin))-$(TAG): bin/$(OS)_$(ARCH)/$(bin) build/Dockerfile.in  \
+    .container-$(subst /,_,$(REGISTRY)/$(bin))-$(TAG): bin/$(OS)_$(ARCH)/$(bin) build/docker/Dockerfile.in  \
 ))
 # Определение цели для всех дотфайлов контейнеров
 $(CONTAINER_DOTFILES):
@@ -167,7 +167,7 @@ $(CONTAINER_DOTFILES):
 	    -e 's|{ARG_ARCH}|$(ARCH)|g'      \
 	    -e 's|{ARG_OS}|$(OS)|g'          \
 	    -e 's|{ARG_FROM}|$(BASEIMAGE)|g' \
-	    build/Dockerfile.in > .dockerfile-$(BIN)-$(OS)_$(ARCH)
+	    build/docker/Dockerfile.in > .dockerfile-$(BIN)-$(OS)_$(ARCH)
 	@docker build -t $(REGISTRY)/$(BIN):$(TAG) -f .dockerfile-$(BIN)-$(OS)_$(ARCH) .
 	@docker images -q $(REGISTRY)/$(BIN):$(TAG) > $@
 	@echo
